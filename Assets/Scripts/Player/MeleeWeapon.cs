@@ -1,12 +1,13 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.Rendering;
 
 [RequireComponent(typeof(MeshFilter))]
 [RequireComponent(typeof(MeshRenderer))]
-[RequireComponent(typeof(BoxCollider))]
 public class MeleeWeapon : MonoBehaviour
 {
+    [SerializeField] 
+    private Animator weaponAnimator;
     [SerializeField]
     private CustomInput customInput;
     [SerializeField]
@@ -19,6 +20,12 @@ public class MeleeWeapon : MonoBehaviour
     private float clearDamage = 10.0f;
     [SerializeField]
     private float damageMultiplier = 1.0f;
+    [SerializeField] 
+    private Vector3 hitboxOffset = new Vector3(0f, 0f, 1f);
+    [SerializeField] 
+    private LayerMask enemyLayer;
+    [SerializeField] 
+    private float hitRadius = 1.5f;
 
     private float nextHitTime;
 
@@ -34,14 +41,27 @@ public class MeleeWeapon : MonoBehaviour
 
     void Hit()
     {
-        Debug.Log("Hit");
-        weaponPoint.localRotation = Quaternion.Euler(-90,00,0);
-        StartCoroutine(ResetWeaponRotation());
+        weaponAnimator.SetTrigger("Hit0");
+
+        Vector3 center = weaponPoint.position + weaponPoint.forward * hitboxOffset.z;
+        Collider[] hits = Physics.OverlapSphere(center, hitRadius, enemyLayer);
+
+        foreach (var hit in hits)
+        {
+            Debug.Log(hit.gameObject.name);
+        }
+
+
+        weaponAnimator.SetTrigger("Idle");
     }
 
-    IEnumerator ResetWeaponRotation()
+    private void OnDrawGizmosSelected()
     {
-        yield return new WaitForSeconds(0.1f);
-        weaponPoint.localRotation = Quaternion.identity;
+        if (weaponPoint == null) return;
+
+        Gizmos.color = Color.red;
+        Vector3 center = weaponPoint.position + weaponPoint.forward * hitboxOffset.z;
+        Gizmos.DrawWireSphere(center, hitRadius);
     }
+
 }
