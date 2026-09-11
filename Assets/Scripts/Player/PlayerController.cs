@@ -9,13 +9,33 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody rg;
 
-    private void Awake() => rg = GetComponent<Rigidbody>();
+    private void Awake()
+    {
+        rg = GetComponent<Rigidbody>();
+        if(rg)
+        {
+            rg.useGravity = false;
+            rg.interpolation = RigidbodyInterpolation.Interpolate;
+            rg.collisionDetectionMode = CollisionDetectionMode.Continuous;
+            rg.constraints = RigidbodyConstraints.FreezePositionY;
+        }
+    }    
 
     private void FixedUpdate() 
-    { 
-        Vector2 move = myInput.Move.normalized; 
+    {
+        Vector2 move = myInput.Move.normalized;
 
-        rg.MovePosition(rg.position + new Vector3(move.x, 0f, move.y) * (moveSpeed * Time.fixedDeltaTime)); 
+        Vector3 velocity = new Vector3(move.x, 0f, move.y) * moveSpeed;
+
+        /* Fix bug with flying Y */
+        rg.linearVelocity = new Vector3(velocity.x, 0f, velocity.z);  
+
+        var target = myInput.AimPoint(rg.position);
+        var direction = target - rg.position;
+        direction.y = 0f;
+
+        if (direction.sqrMagnitude > 0.01f)
+            rg.MoveRotation(Quaternion.LookRotation(direction));
 
     }
 
