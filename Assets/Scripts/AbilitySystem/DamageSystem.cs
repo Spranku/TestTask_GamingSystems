@@ -57,7 +57,7 @@ public static class DamageSystem
         else
             GameManager.Instance?.Stats?.RecordDamageDealt(finalData.DamageAmount);
 
-        Debug.Log("Apply damage from " + data.Instigator.name + " " + finalData.DamageAmount + " to " + target);
+        //Debug.Log("Apply damage from " + data.Instigator.name + " " + finalData.DamageAmount + " to " + target);
 
         target.TakeDamage(finalData);
     }
