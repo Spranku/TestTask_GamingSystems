@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37bbe972eaf2a8946b55a16f9155df80, type: 3}
+  m_Name: DashAbility
+  m_EditorClassIdentifier: Assembly-CSharp::DashAbility
+  abilityName: DashAbility
+  cooldown: 2
+  damage: 0
+  distance: 100
+  dashDuration: 0.2
