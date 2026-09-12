@@ -14,12 +14,6 @@ public class MeleeWeapon : MonoBehaviour
     private Transform weaponPoint;
     [SerializeField]
     private float hitRate = 0.15f;
-    [SerializeField]
-    private float swingSpeed = 1.0f;
-    [SerializeField]
-    private float clearDamage = 10.0f;
-    [SerializeField]
-    private float damageMultiplier = 1.0f;
     [SerializeField] 
     private Vector3 hitboxOffset = new Vector3(0f, 0f, 1f);
     [SerializeField] 
@@ -35,23 +29,13 @@ public class MeleeWeapon : MonoBehaviour
         if (!customInput.HitPressed || Time.time < nextHitTime) return;
 
         nextHitTime = Time.time + hitRate;
-
-        Hit();
+        VisualizeHit();
     }
 
-    void Hit()
+    void VisualizeHit()
     {
+        /* Change anim states */
         weaponAnimator.SetTrigger("Hit0");
-
-        Vector3 center = weaponPoint.position + weaponPoint.forward * hitboxOffset.z;
-        Collider[] hits = Physics.OverlapSphere(center, hitRadius, enemyLayer);
-
-        foreach (var hit in hits)
-        {
-            Debug.Log(hit.gameObject.name);
-        }
-
-
         weaponAnimator.SetTrigger("Idle");
     }
 

@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 move = myInput.Move.normalized;
 
-        Vector3 velocity = new Vector3(move.x, 0f, move.y) * moveSpeed;
+        var velocity = new Vector3(move.x, 0f, move.y) * moveSpeed;
 
         /* Fix bug with flying Y */
         rg.linearVelocity = new Vector3(velocity.x, 0f, velocity.z);  
