@@ -3,6 +3,10 @@ using UnityEngine;
 
 public static class DamageSystem
 {
+    /* For stats */
+    public static event System.Action<IDamageable, float> OnDamageApplied;
+
+    /* Modifiers */
     private static readonly List<IDamageModifier> modifiers = new List<IDamageModifier>();
 
     public static void RegisterModifier(IDamageModifier modifier)
@@ -44,6 +48,14 @@ public static class DamageSystem
 
         var finalData = data;
         finalData.DamageAmount = finalDamage;
+
+        /* Send info to stats comp 
+         * Damage for player / enemy
+         */
+        if (target is Component targetComponent && targetComponent.CompareTag("Player"))
+            GameManager.Instance?.Stats?.RecordDamageTaken(finalData.DamageAmount);
+        else
+            GameManager.Instance?.Stats?.RecordDamageDealt(finalData.DamageAmount);
 
         Debug.Log("Apply damage from " + data.Instigator.name + " " + finalData.DamageAmount + " to " + target);
 

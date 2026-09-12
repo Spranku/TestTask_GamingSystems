@@ -1,12 +1,10 @@
-using System;
+﻿using System;
 using UnityEngine;
 
 public class Health : MonoBehaviour, IDamageable
 {
     [SerializeField] 
     private float maxHealth = 100f;
-    [SerializeField] 
-    private bool isInvulnerable = false;
 
     public float Current { get; private set; }
     public float Max => maxHealth;
@@ -24,7 +22,7 @@ public class Health : MonoBehaviour, IDamageable
 
     public void TakeDamage(DamageData damage)
     {
-        if (!bIsAlive || isInvulnerable) return;
+        if (!bIsAlive) return;
 
         Current = Mathf.Max(0f, Current - damage.DamageAmount);
         OnDamageTaken?.Invoke(damage); // for VFX and sound
@@ -34,6 +32,19 @@ public class Health : MonoBehaviour, IDamageable
         if (Current <= 0f)
         {
             OnDeath?.Invoke();
+
+            /* Choice kill or dead */
+            if (CompareTag("Player"))
+            {
+                GameManager.Instance?.Stats?.RecordDeath();
+                GameManager.Instance?.OnPlayerDied();
+            }
+            else
+            {
+                GameManager.Instance?.Stats?.RecordKill();
+                GameManager.Instance?.OnEnemyKilled(gameObject);
+                Destroy(gameObject);
+            }
             Destroy(gameObject);
         }
     }

@@ -1,35 +1,59 @@
+using System;
 using UnityEngine;
 
-public class CombatBootstrap : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
-    [SerializeField]
-    private CritModifier critModifier;
-    [SerializeField]
-    private ArmorModifier armorModifier;
-    [SerializeField]
-    private bool modifiersEnabled;
+    public static GameManager Instance { get; private set; }
+    public StatsComponent Stats { get; set; }
+    public int EnemiesAlive { get; private set; }
+    public int EnemiesKilled { get; private set; }
+    public bool IsGameOver { get; private set; }
 
-    private void OnEnable()
+    /* Events for UI */
+    public event Action OnVictory;
+    public event Action OnDefeat;
+
+    private void Awake()
     {
-        /* Uncomment it for check modifiers works */
-        if (modifiersEnabled)
+        if (Instance != null && Instance != this)
         {
-            if (critModifier != null) DamageSystem.RegisterModifier(critModifier);
-            if (armorModifier != null) DamageSystem.RegisterModifier(armorModifier);
+            Destroy(gameObject);
+            return;
         }
+        Instance = this;
     }
 
-    private void OnDisable()
+    public void RegisterEnemy()
     {
-        if (critModifier != null) DamageSystem.UnregisterModifier(critModifier);
-        if (armorModifier != null) DamageSystem.UnregisterModifier(armorModifier);
+        EnemiesAlive++;
     }
 
-    /* TODO */
-    //private void OnDestroy() => DamageSystem.ClearModifiers();
-
-    private void OnDestroy()
+    public void OnEnemyKilled(GameObject enemy)
     {
-        DamageSystem.ClearModifiers();
+        EnemiesKilled++;
+        EnemiesAlive--;
+
+        if (EnemiesAlive <= 0 && !IsGameOver)
+            TriggerVictory();
+    }
+
+    public void OnPlayerDied()
+    {
+        if (IsGameOver) return;
+        TriggerDefeat();
+    }
+
+    private void TriggerVictory()
+    {
+        Debug.Log("GameManager::TriggerVictory - Victory");
+        IsGameOver = true;
+        OnVictory?.Invoke();
+    }
+
+    private void TriggerDefeat()
+    {
+        Debug.Log("GameManager::TriggerVictory - Defeat");
+        IsGameOver = true;
+        OnDefeat?.Invoke();
     }
 }
