@@ -151,6 +151,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1234799636333225853, guid: 380351f0f3b3d0e4ebc8dd32e9fe977d, type: 3}
+      propertyPath: m_Text
+      value: Play game
+      objectReference: {fileID: 0}
     - target: {fileID: 1566426476001080228, guid: 380351f0f3b3d0e4ebc8dd32e9fe977d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -226,6 +230,10 @@ PrefabInstance:
     - target: {fileID: 5722678440340211879, guid: 380351f0f3b3d0e4ebc8dd32e9fe977d, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6927858919669865793, guid: 380351f0f3b3d0e4ebc8dd32e9fe977d, type: 3}
+      propertyPath: m_Name
+      value: PlayGameButton
       objectReference: {fileID: 0}
     - target: {fileID: 8747125774078134715, guid: 380351f0f3b3d0e4ebc8dd32e9fe977d, type: 3}
       propertyPath: m_Pivot.x
@@ -310,8 +318,52 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4617296614454472321, guid: 380351f0f3b3d0e4ebc8dd32e9fe977d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 214633946}
   m_SourcePrefab: {fileID: 100100000, guid: 380351f0f3b3d0e4ebc8dd32e9fe977d, type: 3}
+--- !u!1 &214633943 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4617296614454472321, guid: 380351f0f3b3d0e4ebc8dd32e9fe977d, type: 3}
+  m_PrefabInstance: {fileID: 214633942}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &214633944 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1127776413988720253, guid: 380351f0f3b3d0e4ebc8dd32e9fe977d, type: 3}
+  m_PrefabInstance: {fileID: 214633942}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
+--- !u!114 &214633945 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6117360502903382899, guid: 380351f0f3b3d0e4ebc8dd32e9fe977d, type: 3}
+  m_PrefabInstance: {fileID: 214633942}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
+--- !u!114 &214633946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214633943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14d809597c214e0428f09f9ec4a99b12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MenuUI
+  playButton: {fileID: 214633945}
+  exitButton: {fileID: 214633944}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,6 +5,7 @@ public class StatsComponent : MonoBehaviour
     private readonly Subject subject = new Subject();
     private StatsData currentStats = StatsData.Empty;
     private float battleStartTime;
+    private bool isBattleActive = false;
 
     public StatsData CurrentStats => currentStats;
 
@@ -28,13 +29,35 @@ public class StatsComponent : MonoBehaviour
 
     private void Start()
     {
-        battleStartTime = Time.time;
         /* Init stats comp in game manager */
         GameManager.Instance.Stats = this;
     }
 
+    public void StartBattle()
+    {
+        if (isBattleActive) return;
+
+        isBattleActive = true;
+        battleStartTime = Time.time;
+        currentStats.battleTime = 0f;
+
+        //Debug.Log("StatsComponent::StartBattle - battle starts");
+    }
+
+    public void StopBattle()
+    {
+        if (!isBattleActive) return;
+
+        isBattleActive = false;
+        subject.Notify(currentStats);
+
+        //Debug.Log("StatsComponent::StartBattle - battle end");
+    }
+
     private void Update()
     {
+        if (!isBattleActive) return;
+
         currentStats.battleTime = Time.time - battleStartTime;
     }
 

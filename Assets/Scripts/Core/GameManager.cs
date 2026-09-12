@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
         }
         Instance = this;
 
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
 
     public void RegisterEnemy()
@@ -47,16 +47,18 @@ public class GameManager : MonoBehaviour
 
     private void TriggerVictory()
     {
-        Debug.Log("GameManager::TriggerVictory - Victory");
+        //Debug.Log("GameManager::TriggerVictory - Victory");
         IsGameOver = true;
+        Stats?.StopBattle();
         OnBattleEnd(true);
         OnVictory?.Invoke();
     }
 
     private void TriggerDefeat()
     {
-        Debug.Log("GameManager::TriggerVictory - Defeat");
+        //Debug.Log("GameManager::TriggerVictory - Defeat");
         IsGameOver = true;
+        Stats?.StopBattle();
         OnBattleEnd(false);
         OnDefeat?.Invoke();
     }
@@ -68,7 +70,6 @@ public class GameManager : MonoBehaviour
        
         var stats = Stats.CurrentStats;
 
-        
         /* SaveManager.Instance.AddKills(stats.totalKills);
         * ...
         */
