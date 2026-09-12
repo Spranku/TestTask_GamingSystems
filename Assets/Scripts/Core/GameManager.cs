@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
             return;
         }
         Instance = this;
+
+        DontDestroyOnLoad(gameObject);
     }
 
     public void RegisterEnemy()
@@ -47,6 +49,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("GameManager::TriggerVictory - Victory");
         IsGameOver = true;
+        OnBattleEnd(true);
         OnVictory?.Invoke();
     }
 
@@ -54,6 +57,22 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("GameManager::TriggerVictory - Defeat");
         IsGameOver = true;
+        OnBattleEnd(false);
         OnDefeat?.Invoke();
+    }
+
+    private void OnBattleEnd(bool victory)
+    {
+        if (SaveManager.Instance == null) return;
+        if (Stats == null) return;
+       
+        var stats = Stats.CurrentStats;
+
+        
+        /* SaveManager.Instance.AddKills(stats.totalKills);
+        * ...
+        */
+
+        if (victory) SaveManager.Instance.AddCurrency(100);
     }
 }
