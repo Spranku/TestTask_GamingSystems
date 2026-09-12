@@ -32,6 +32,7 @@ public class EnemyController : MonoBehaviour
     {
         if (targetTransform == null) return;
 
+        /* Always move to player */
         Vector3 direction = targetTransform.position - transform.position;
         direction.y = 0f;
 
